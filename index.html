@@ -392,8 +392,9 @@ const CONFIG = {
 /* fields: day, time, league, home, away, pick, odds, chance (your % estimate),
    probs [home, draw, away] must add up to 100, conf 1-5, formH, formA (W/D/L), why */
 const PREDICTIONS = [
-  /* Example pick. Copy the line below OUTSIDE this comment and edit it to add a pick:
-  {day:0,time:'19:45',league:'Serie A',home:'Team A',away:'Team B',pick:'Team A to win',odds:1.55,chance:68,probs:[68,19,13],conf:4,formH:'WWDWW',formA:'LDLLW',why:'Your reasoning here, in two or three sentences.'},
+  {day:0,time:'19:00',league:'Champions League',home:'Arsenal',away:'Lille',pick:'Arsenal to win',odds:1.23,chance:80,probs:[80,14,6],conf:4,why:'Arsenal won their opening Champions League league-phase match and play this one at home. The market rates them as heavy favourites, with the home win priced at 1.23 against 7.22 for the draw and 15.50 for a Lille win.'}
+  /* Example for the next pick. Copy the line below OUTSIDE this comment, add a comma after the pick above, and edit it:
+  {day:0,time:'19:45',league:'Serie A',home:'Team A',away:'Team B',pick:'Team A to win',odds:1.55,chance:68,probs:[68,19,13],conf:4,formH:'WWDWW',formA:'LDLLW',why:'Your reasoning here.'},
   */
 ];
 
@@ -537,8 +538,8 @@ function renderFixtures(){
       <div class="fx-main">
         <div class="fx-when"><b>${esc(p.time)}</b><small>${fmtDay(p.day)}<br>${esc(p.league)}</small></div>
         <div class="fx-teams">
-          <div class="t">${esc(p.home)} ${formChips(p.formH)}</div>
-          <div class="t">${esc(p.away)} ${formChips(p.formA)}</div>
+          <div class="t">${esc(p.home)} ${p.formH ? formChips(p.formH) : ''}</div>
+          <div class="t">${esc(p.away)} ${p.formA ? formChips(p.formA) : ''}</div>
           ${probBar(p.probs)}
         </div>
         <div class="fx-pick">
