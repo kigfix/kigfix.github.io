@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Soccer Predictions Today | Pitchside Picks</title>
+<meta name="description" content="Free daily soccer predictions with written reasoning, probabilities and a public win/loss record for every pick.">
+<meta name="theme-color" content="#14573F">
+<meta property="og:title" content="Pitchside Picks: free soccer predictions with a public record">
+<meta property="og:description" content="Daily picks across the top leagues, explained, and every result logged.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- Design tokens ---------- */
+:root{
+  --chalk:#F4F6EF; --card:#FFFFFF; --ink:#12231C; --muted:#5A6A60; --line:#D8DECF;
+  --pitch:#14573F; --pitch-deep:#0E3F2E; --accent:#14573F;
+  --yellow:#F5C518; --red:#D6452F; --green:#1F8A5B;
+  --h:#14573F; --d:#B9C3B3; --a:#F5C518;
+  --radius:14px;
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+:root[data-theme="dark"]{
+  --chalk:#0B1812; --card:#12261D; --ink:#E9F0E5; --muted:#9DB1A4; --line:#24402F;
+  --accent:#4FC48F; --h:#3DB07F; --d:#46604F; --a:#F5C518;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --chalk:#0B1812; --card:#12261D; --ink:#E9F0E5; --muted:#9DB1A4; --line:#24402F;
+    --accent:#4FC48F; --h:#3DB07F; --d:#46604F; --a:#F5C518;
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--chalk);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;letter-spacing:-0.02em}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:6px}
+.wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Header ---------- */
+.site-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--chalk) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--ink);text-decoration:none}
+.brand svg{width:34px;height:34px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem}
+.nav a:hover{background:color-mix(in srgb,var(--pitch) 12%,transparent)}
+.icon-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;width:40px;height:40px;display:grid;place-items:center}
+@media (max-width:760px){.nav a:not(.keep){display:none}}
+
+/* ---------- Sample banner ---------- */
+.sample-banner{background:var(--yellow);color:#2A2200;text-align:center;padding:8px 16px;font-size:.9rem;font-weight:600}
+
+/* ---------- Hero (the pitch) ---------- */
+.hero{background:repeating-linear-gradient(90deg,var(--pitch) 0 72px,var(--pitch-deep) 72px 144px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:24px;border:2px solid rgba(255,255,255,.22);border-radius:6px;pointer-events:none}
+.hero::after{content:"";position:absolute;left:50%;top:24px;bottom:24px;width:2px;background:rgba(255,255,255,.22);pointer-events:none}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;padding:72px 0 64px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.4vw,3.9rem);font-weight:800;max-width:14ch}
+.hero p.lede{font-size:1.15rem;max-width:46ch;margin:18px 0 28px;color:rgba(255,255,255,.9)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:2px solid transparent;padding:12px 22px;font-weight:600;text-decoration:none}
+.btn-primary{background:var(--yellow);color:#2A2200}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+
+.ticket{background:var(--card);color:var(--ink);border-radius:var(--radius);padding:22px 22px 20px;box-shadow:0 18px 40px rgba(0,0,0,.35);position:relative}
+.ticket::before,.ticket::after{content:"";position:absolute;top:62px;width:22px;height:22px;border-radius:50%;background:var(--pitch-deep)}
+.ticket::before{left:-11px}.ticket::after{right:-11px}
+.ticket-top{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--muted);padding-bottom:18px;border-bottom:2px dashed var(--line);margin-bottom:16px}
+.ticket-top strong{color:var(--ink);font-family:var(--display);font-size:1rem}
+.ticket .teams{font-family:var(--display);font-weight:800;font-size:1.6rem;line-height:1.15}
+.ticket .teams span{display:block;color:var(--muted);font-weight:600;font-size:1rem;margin:2px 0}
+.ticket-pick{display:flex;align-items:baseline;gap:14px;margin:16px 0 14px;flex-wrap:wrap}
+.pill{display:inline-block;background:var(--pitch);color:#fff;border-radius:8px;padding:6px 12px;font-weight:600}
+.ticket-odds{font-family:var(--display);font-weight:800;font-size:1.7rem}
+.ticket-odds small{font-family:var(--body);font-weight:500;color:var(--muted);font-size:.85rem;margin-left:4px}
+
+/* ---------- Stat strip ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);background:var(--card)}
+.stat{padding:22px 16px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--display);font-size:2rem;font-weight:800;line-height:1}
+.stat span{color:var(--muted);font-size:.9rem}
+@media (max-width:760px){
+  .hero-grid{grid-template-columns:1fr;padding:48px 0}
+  .hero::after{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+}
+
+/* ---------- Sections ---------- */
+section{padding:64px 0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;margin-bottom:24px}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800}
+.sec-head p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+
+/* ---------- Filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--card);padding:3px}
+.seg button{border:0;background:transparent;padding:7px 16px;border-radius:999px;font-weight:600;font-size:.92rem;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--pitch);color:#fff}
+.field{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font:inherit;font-size:.92rem}
+.field[type="search"]{min-width:200px;flex:1 1 200px;max-width:280px}
+.chip-toggle{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 14px;font-size:.92rem;font-weight:600}
+.chip-toggle[aria-pressed="true"]{background:var(--yellow);color:#2A2200;border-color:var(--yellow)}
+
+/* ---------- Fixture rows ---------- */
+.fixtures{display:grid;gap:14px}
+.fixture{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.fx-main{display:grid;grid-template-columns:128px 1fr 250px}
+.fx-when{background:color-mix(in srgb,var(--pitch) 9%,var(--card));padding:18px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+.fx-when b{font-family:var(--display);font-size:1.7rem;font-weight:800;line-height:1}
+.fx-when small{color:var(--muted);font-size:.85rem;margin-top:6px;line-height:1.3}
+.fx-teams{padding:18px 20px}
+.fx-teams .t{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.2rem;margin-bottom:6px;flex-wrap:wrap}
+.form{display:inline-flex;gap:3px}
+.form i{width:18px;height:18px;border-radius:4px;font-style:normal;font-size:.68rem;font-weight:700;display:grid;place-items:center;color:#fff;font-family:var(--body)}
+.form .W{background:var(--green)}.form .D{background:#8A958E}.form .L{background:var(--red)}
+.probs{display:flex;height:10px;border-radius:999px;overflow:hidden;margin-top:14px;gap:2px}
+.probs .ph{background:var(--h)}.probs .pd{background:var(--d)}.probs .pa{background:var(--a)}
+.probs-l{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-top:6px}
+.fx-pick{padding:18px 20px;border-left:1px dashed var(--line);display:flex;flex-direction:column;gap:8px;justify-content:center}
+.fx-pick .pill{align-self:flex-start}
+.odds-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.odds-row b{font-family:var(--display);font-size:1.6rem;font-weight:800}
+.odds-row span{font-size:.85rem;color:var(--muted)}
+.tag-value{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green);border-radius:6px;padding:2px 8px;font-size:.78rem;font-weight:700}
+:root[data-theme="dark"] .tag-value{color:#6FE0A8}
+.pips{display:flex;align-items:center;gap:4px;font-size:.82rem;color:var(--muted)}
+.pips i{width:16px;height:6px;border-radius:3px;background:var(--line)}
+.pips i.on{background:var(--pitch)}
+:root[data-theme="dark"] .pips i.on{background:var(--accent)}
+.fx-actions{display:flex;gap:8px;margin-top:2px}
+.mini{border:1px solid var(--line);background:transparent;border-radius:8px;padding:5px 10px;font-size:.82rem;font-weight:600}
+.mini:hover{background:color-mix(in srgb,var(--pitch) 10%,transparent)}
+.mini[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:#2A2200}
+details.why{border-top:1px solid var(--line)}
+details.why summary{cursor:pointer;padding:12px 20px;font-weight:600;font-size:.92rem;color:var(--accent);list-style:none}
+details.why summary::-webkit-details-marker{display:none}
+details.why summary::before{content:"+";display:inline-block;width:18px;font-weight:800}
+details.why[open] summary::before{content:"\2212"}
+details.why p{margin:0;padding:0 20px 18px 38px;color:var(--ink);max-width:78ch}
+@media (max-width:860px){
+  .fx-main{grid-template-columns:1fr}
+  .fx-when{flex-direction:row;align-items:baseline;gap:12px;border-right:0;border-bottom:1px solid var(--line)}
+  .fx-when small{margin:0}
+  .fx-pick{border-left:0;border-top:1px dashed var(--line)}
+}
+.empty{border:2px dashed var(--line);border-radius:var(--radius);padding:36px;text-align:center;color:var(--muted)}
+.empty button{margin-top:10px}
+
+/* ---------- Track record ---------- */
+.record-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+@media (max-width:900px){.record-grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.panel h3{font-size:1.2rem;font-weight:800;margin-bottom:4px}
+.panel .sub{color:var(--muted);font-size:.9rem;margin:0 0 14px}
+#chart{width:100%;height:auto;display:block}
+.chart-axis{stroke:var(--line);stroke-width:1}
+.chart-zero{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4}
+.chart-line{fill:none;stroke:var(--pitch);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+:root[data-theme="dark"] .chart-line{stroke:var(--accent)}
+.chart-dot{fill:var(--yellow);stroke:var(--ink);stroke-width:2}
+.chart-text{fill:var(--muted);font-size:12px;font-family:var(--body)}
+.last10{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.last10 i{width:32px;height:32px;border-radius:8px;font-style:normal;font-weight:800;display:grid;place-items:center;color:#fff;font-family:var(--display)}
+.last10 .W{background:var(--green)}.last10 .L{background:var(--red)}.last10 .V{background:#8A958E}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th{text-align:left;font-weight:600;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--line);font-size:.85rem}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.res{display:inline-block;min-width:26px;text-align:center;border-radius:6px;font-weight:800;color:#fff;padding:1px 6px}
+.res.W{background:var(--green)}.res.L{background:var(--red)}.res.V{background:#8A958E}
+.table-scroll{overflow-x:auto}
+.more{margin-top:14px}
+
+/* ---------- Method ---------- */
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:900px){.method{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.method{grid-template-columns:1fr}}
+.method div{border-top:4px solid var(--pitch);background:var(--card);padding:18px;border-radius:0 0 var(--radius) var(--radius);border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.method div:nth-child(2){border-top-color:var(--yellow)}
+.method div:nth-child(3){border-top-color:var(--red)}
+.method div:nth-child(4){border-top-color:#8A958E}
+.method h3{font-size:1.1rem;font-weight:800;margin-bottom:6px}
+.method p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* ---------- FAQ ---------- */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.faq summary{cursor:pointer;padding:16px 18px;font-weight:600}
+.faq details p{margin:0;padding:0 18px 16px;color:var(--muted);max-width:75ch}
+
+/* ---------- Responsible ---------- */
+.safe{background:var(--pitch-deep);color:#fff;border-radius:var(--radius);padding:32px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+.safe .age{font-family:var(--display);font-weight:800;font-size:2.4rem;border:4px solid var(--yellow);border-radius:50%;width:84px;height:84px;display:grid;place-items:center;color:var(--yellow)}
+.safe h2{font-size:1.6rem;margin-bottom:8px}
+.safe p{margin:0;color:rgba(255,255,255,.88);max-width:70ch}
+@media (max-width:620px){.safe{grid-template-columns:1fr}}
+
+/* ---------- Footer / toast ---------- */
+footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer p{margin:0;max-width:70ch}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);background:var(--ink);color:var(--chalk);padding:10px 18px;border-radius:999px;font-weight:600;opacity:0;pointer-events:none;transition:.25s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+
+<body>
+<div id="sample-banner" class="sample-banner" hidden>Sample data: the matches and results below are placeholders. Edit them in the DATA section of this file before you go live.</div>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#14573F"/><g fill="none" stroke="#fff" stroke-width="2" opacity=".9"><circle cx="20" cy="20" r="7"/><line x1="20" y1="6" x2="20" y2="34"/><rect x="6" y="6" width="28" height="28" rx="2"/></g><circle cx="20" cy="20" r="2.6" fill="#F5C518"/></svg>
+      <span data-site>Pitchside Picks</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a class="keep" href="#predictions">Predictions</a>
+      <a class="keep" href="#record">Track record</a>
+      <a href="#method">How we pick</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="icon-btn" id="theme" aria-label="Switch between light and dark theme" title="Switch theme">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Free soccer predictions with the full record in public.</h1>
+        <p class="lede">Daily picks from the top leagues, the reasoning behind each one, and every win and loss logged. No hiding the bad days.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#predictions">See today's picks</a>
+          <a class="btn btn-ghost" href="#record">Check the track record</a>
+        </div>
+      </div>
+      <aside class="ticket" aria-label="Pick of the day" id="potd"></aside>
+    </div>
+  </div>
+
+  <div class="stats" id="stats" aria-label="Track record summary"></div>
+
+  <!-- PREDICTIONS -->
+  <section id="predictions">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Predictions</h2>
+          <p>Each pick shows our estimated chance, the bookmaker's odds, and how confident we are. Tap "Why this pick" for the reasoning.</p>
+        </div>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter predictions">
+        <div class="seg" id="day-seg">
+          <button type="button" data-day="0" aria-pressed="true">Today</button>
+          <button type="button" data-day="1" aria-pressed="false">Tomorrow</button>
+          <button type="button" data-day="all" aria-pressed="false">All</button>
+        </div>
+        <label class="visually-hidden" for="league">League</label>
+        <select class="field" id="league"></select>
+        <label class="visually-hidden" for="conf">Minimum confidence</label>
+        <select class="field" id="conf">
+          <option value="1">Any confidence</option>
+          <option value="3">3 of 5 or higher</option>
+          <option value="4">4 of 5 or higher</option>
+          <option value="5">5 of 5 only</option>
+        </select>
+        <label class="visually-hidden" for="q">Search teams</label>
+        <input class="field" type="search" id="q" placeholder="Search a team">
+        <button type="button" class="chip-toggle" id="starred" aria-pressed="false">Starred only</button>
+      </div>
+
+      <div class="fixtures" id="fixtures" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- TRACK RECORD -->
+  <section id="record" style="background:color-mix(in srgb,var(--pitch) 5%,var(--chalk))">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>Track record</h2>
+          <p>Every settled pick, wins and losses together. Profit is measured in units: one unit staked on each pick at the listed odds. Voids are refunded and don't count as wins or losses.</p>
+        </div>
+      </div>
+      <div class="record-grid">
+        <div class="panel">
+          <h3>Profit over time</h3>
+          <p class="sub" id="chart-sub"></p>
+          <svg id="chart" viewBox="0 0 640 230" role="img" aria-label="Cumulative profit in units across settled picks"></svg>
+          <h3 style="margin-top:18px;font-size:1rem">Last 10 results</h3>
+          <div class="last10" id="last10"></div>
+        </div>
+        <div class="panel">
+          <h3>Recent results</h3>
+          <p class="sub">Newest first.</p>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Date</th><th>Match</th><th>Pick</th><th>Odds</th><th>Result</th></tr></thead>
+              <tbody id="results"></tbody>
+            </table>
+          </div>
+          <button type="button" class="mini more" id="more">Show more results</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section id="method">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>How we pick</h2>
+          <p>Nothing here is magic. It's a checklist applied the same way every matchday.</p>
+        </div>
+      </div>
+      <div class="method">
+        <div><h3>Recent form</h3><p>Results over the last five to eight games, weighted toward home and away form separately, plus the quality of the opposition faced.</p></div>
+        <div><h3>Chance creation</h3><p>Expected goals for and against, shots allowed, and whether recent scorelines flatter or hide how a team has actually played.</p></div>
+        <div><h3>Team news</h3><p>Injuries, suspensions, rotation before big fixtures, travel and fixture congestion. We recheck lineups before kickoff when we can.</p></div>
+        <div><h3>Price check</h3><p>A pick only goes up if our estimated chance beats the chance implied by the odds. That gap is the "value" tag you see on a pick.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESPONSIBLE -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="safe">
+        <div class="age" aria-hidden="true">18+</div>
+        <div>
+          <h2>Predictions are opinions, not promises</h2>
+          <p>No pick in football is a sure thing, and anyone who says otherwise is selling something. If you bet, only use money you can afford to lose, set a limit before you start, and stop if it stops being fun. If gambling is causing you stress, talk to a local support service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top:0">
+    <div class="wrap faq">
+      <div class="sec-head"><div><h2>Questions</h2></div></div>
+      <details><summary>Are these predictions guaranteed?</summary><p>No. Football is low-scoring and full of upsets. Our goal is to find picks where the odds undersell the real chance, and to show you the results either way. Some days will lose.</p></details>
+      <details><summary>Is it really free?</summary><p>Yes. Predictions, reasoning and the track record are free to read. There's no paywall and no "VIP" tier.</p></details>
+      <details><summary>What does the confidence rating mean?</summary><p>It's how sure we are about our own estimate, from 1 (shaky, limited information) to 5 (strong evidence from several angles). It is not a guarantee, and a 5 can still lose.</p></details>
+      <details><summary>What does "value" mean?</summary><p>If we think a team has a 62% chance to win but the odds imply 57%, there's a gap in your favour. That's value. A pick can have a high chance but no value if the odds are already very short.</p></details>
+      <details><summary>Which leagues do you cover?</summary><p>Mostly the Premier League, La Liga, Serie A, Bundesliga, Ligue 1 and the Champions League, because team news and data are easiest to check there.</p></details>
+      <details><summary>Do you take payment or run bookmaker ads?</summary><p>Edit this answer to match your site. If you ever add affiliate links, label them clearly so readers know.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong data-site>Pitchside Picks</strong> shares football opinions for information and entertainment only. It is not financial advice and not a bookmaker. Odds change fast, so check the current price before you act. You must be 18 or over to bet, and betting laws differ by country.</p>
+    <p>&copy; <span id="year"></span> <span data-site>Pitchside Picks</span></p>
+  </div>
+</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   DATA: this is the only part you need to edit day to day.
+   1) Set sampleMode to false when you add your real picks.
+   2) Add new picks to PREDICTIONS (day: 0 = today, 1 = tomorrow).
+   3) When a match finishes, add a row to the TOP of RESULTS.
+   ===================================================================== */
+const CONFIG = {
+  siteName: 'Pitchside Picks',
+  sampleMode: true
+};
+
+/* fields: day, time, league, home, away, pick, odds, chance (your % estimate),
+   probs [home, draw, away] must add up to 100, conf 1-5, formH, formA (W/D/L), why */
+const PREDICTIONS = [
+  {day:0,time:'15:00',league:'Premier League',home:'Arsenal',away:'Brighton',pick:'Arsenal to win',odds:1.75,chance:62,probs:[60,22,18],conf:4,formH:'WWDWW',formA:'LDWLW',why:'Sample text. Explain your reasoning here: strong home form, the visitors rotating after a midweek game, and a chance profile that favours the home side. Two or three sentences is plenty.'},
+  {day:0,time:'17:30',league:'La Liga',home:'Real Sociedad',away:'Getafe',pick:'Under 2.5 goals',odds:1.80,chance:60,probs:[44,31,25],conf:3,formH:'WDWDL',formA:'DDLDW',why:'Sample text. Both sides lean cautious and low-event, so a tight scoreline looks more likely than the price suggests.'},
+  {day:0,time:'18:30',league:'Bundesliga',home:'Leverkusen',away:'Mainz',pick:'Over 2.5 goals',odds:1.70,chance:61,probs:[58,21,21],conf:3,formH:'WWWDW',formA:'LWLDL',why:'Sample text. An attacking home team against a leaky defence. Goals are the angle here rather than the winner.'},
+  {day:0,time:'19:45',league:'Serie A',home:'Inter',away:'Torino',pick:'Inter to win',odds:1.55,chance:68,probs:[68,19,13],conf:5,formH:'WWWWD',formA:'DLLDL',why:'Sample text. The biggest gap in quality on the day, a settled lineup and a visitor struggling for goals.'},
+  {day:0,time:'20:00',league:'Champions League',home:'Napoli',away:'Benfica',pick:'Napoli draw no bet',odds:1.62,chance:63,probs:[58,24,18],conf:3,formH:'WDWWL',formA:'WWDLW',why:'Sample text. Draw no bet protects you if it ends level, which suits a tighter European night.'},
+  {day:0,time:'21:00',league:'Ligue 1',home:'Lyon',away:'Nantes',pick:'Both teams to score',odds:1.85,chance:56,probs:[52,25,23],conf:2,formH:'WLWDW',formA:'LDWLD',why:'Sample text. Lower confidence: both teams usually score here, but lineup news could change that.'},
+  {day:1,time:'12:30',league:'Premier League',home:'Newcastle',away:'Everton',pick:'Newcastle to win',odds:1.90,chance:55,probs:[53,26,21],conf:3,formH:'WDWLW',formA:'DLDLL',why:'Sample text. Home advantage and a clear edge in chance creation, though the price already reflects some of it.'},
+  {day:1,time:'15:30',league:'Bundesliga',home:'Dortmund',away:'Freiburg',pick:'Dortmund win or draw',odds:1.40,chance:74,probs:[51,23,26],conf:4,formH:'WWDWL',formA:'DWLDW',why:'Sample text. A safer double-chance pick. Short odds, so the stake matters more than the headline price.'},
+  {day:1,time:'20:45',league:'Serie A',home:'Roma',away:'Lazio',pick:'Under 2.5 goals',odds:1.95,chance:54,probs:[37,32,31],conf:2,formH:'DWDLW',formA:'WDLWD',why:'Sample text. Derby matches tend to be cagey. Confidence is low because derbies are unpredictable.'},
+  {day:1,time:'21:00',league:'La Liga',home:'Barcelona',away:'Valencia',pick:'Barcelona to win',odds:1.45,chance:72,probs:[72,16,12],conf:5,formH:'WWWDW',formA:'LLDLD',why:'Sample text. Heavy favourites at home against a side short on goals and confidence.'}
+];
+
+/* fields: d (days ago, negative), league, match, pick, odds, score, res ('W','L' or 'V' for void) */
+const RESULTS = [
+  {d:-1,league:'Premier League',match:'Chelsea v Fulham',pick:'Chelsea to win',odds:1.70,score:'2-0',res:'W'},
+  {d:-1,league:'Serie A',match:'Milan v Udinese',pick:'Over 2.5 goals',odds:1.80,score:'1-0',res:'L'},
+  {d:-1,league:'La Liga',match:'Villarreal v Betis',pick:'Both teams to score',odds:1.75,score:'2-2',res:'W'},
+  {d:-2,league:'Bundesliga',match:'Bayern v Augsburg',pick:'Bayern -1 handicap',odds:1.60,score:'4-0',res:'W'},
+  {d:-2,league:'Ligue 1',match:'PSG v Lille',pick:'PSG to win',odds:1.55,score:'1-1',res:'L'},
+  {d:-3,league:'Premier League',match:'Liverpool v Brentford',pick:'Over 2.5 goals',odds:1.65,score:'3-1',res:'W'},
+  {d:-3,league:'Serie A',match:'Juventus v Bologna',pick:'Under 2.5 goals',odds:1.90,score:'1-0',res:'W'},
+  {d:-4,league:'La Liga',match:'Atletico v Osasuna',pick:'Atletico to win',odds:1.60,score:'2-1',res:'W'},
+  {d:-4,league:'Bundesliga',match:'Leipzig v Stuttgart',pick:'Both teams to score',odds:1.70,score:'0-0',res:'L'},
+  {d:-5,league:'Premier League',match:'Spurs v West Ham',pick:'Spurs to win',odds:1.95,score:'1-2',res:'L'},
+  {d:-5,league:'Champions League',match:'Sporting v Ajax',pick:'Sporting to win',odds:1.70,score:'1-1',res:'L'},
+  {d:-6,league:'Serie A',match:'Atalanta v Genoa',pick:'Atalanta to win',odds:1.55,score:'3-0',res:'W'},
+  {d:-6,league:'Ligue 1',match:'Monaco v Rennes',pick:'Over 2.5 goals',odds:1.75,score:'1-0',res:'L'},
+  {d:-7,league:'La Liga',match:'Girona v Sevilla',pick:'Girona draw no bet',odds:1.65,score:'0-0',res:'V'},
+  {d:-7,league:'Premier League',match:'Man City v Wolves',pick:'Man City to win',odds:1.30,score:'3-0',res:'W'},
+  {d:-8,league:'Bundesliga',match:'Frankfurt v Bremen',pick:'Over 2.5 goals',odds:1.80,score:'1-2',res:'W'},
+  {d:-9,league:'Serie A',match:'Napoli v Cagliari',pick:'Napoli to win',odds:1.50,score:'1-2',res:'L'},
+  {d:-9,league:'Premier League',match:'Aston Villa v Leeds',pick:'Villa to win',odds:1.75,score:'2-0',res:'W'},
+  {d:-10,league:'La Liga',match:'Real Madrid v Alaves',pick:'Real Madrid to win',odds:1.35,score:'3-0',res:'W'},
+  {d:-11,league:'Ligue 1',match:'Marseille v Toulouse',pick:'Marseille to win',odds:1.70,score:'0-1',res:'L'},
+  {d:-12,league:'Bundesliga',match:'Dortmund v Hoffenheim',pick:'Over 2.5 goals',odds:1.65,score:'2-0',res:'L'},
+  {d:-13,league:'Premier League',match:'Newcastle v Palace',pick:'Under 2.5 goals',odds:2.00,score:'0-0',res:'W'},
+  {d:-14,league:'La Liga',match:'Barcelona v Celta',pick:'Barcelona to win',odds:1.40,score:'4-1',res:'W'}
+];
+
+/* =====================================================================
+   APP CODE (you shouldn't need to touch anything below)
+   ===================================================================== */
+const $  = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const dayDate = n => { const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() + n); return d; };
+const fmtDay  = n => dayDate(n).toLocaleDateString(undefined, {weekday:'short', day:'numeric', month:'short'});
+const fmtShort = n => dayDate(n).toLocaleDateString(undefined, {day:'numeric', month:'short'});
+
+const state = { day:'0', league:'all', conf:1, q:'', starred:false, shown:10 };
+
+/* ---- storage helpers (private to each visitor's browser) ---- */
+const store = {
+  get(k, fallback){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }catch(e){ return fallback; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let favs = new Set(store.get('favs', []));
+
+/* ---- setup ---- */
+document.title = 'Free Soccer Predictions Today | ' + CONFIG.siteName;
+$$('[data-site]').forEach(el => el.textContent = CONFIG.siteName);
+$('#year').textContent = new Date().getFullYear();
+if (CONFIG.sampleMode) $('#sample-banner').hidden = false;
+
+/* ---- theme ---- */
+const root = document.documentElement;
+const savedTheme = store.get('theme', null);
+if (savedTheme) root.dataset.theme = savedTheme;
+$('#theme').addEventListener('click', () => {
+  const isDark = root.dataset.theme === 'dark' ||
+    (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.dataset.theme = isDark ? 'light' : 'dark';
+  store.set('theme', root.dataset.theme);
+});
+
+/* ---- toast ---- */
+let toastTimer;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+/* ---- stats from RESULTS ---- */
+function computeStats(){
+  const settled = RESULTS.filter(r => r.res === 'W' || r.res === 'L');
+  const wins = settled.filter(r => r.res === 'W').length;
+  const losses = settled.length - wins;
+  const voids = RESULTS.filter(r => r.res === 'V').length;
+  const units = RESULTS.reduce((s, r) => s + (r.res === 'W' ? r.odds - 1 : r.res === 'L' ? -1 : 0), 0);
+  const avgOdds = settled.length ? settled.reduce((s, r) => s + r.odds, 0) / settled.length : 0;
+  return { wins, losses, voids, units, avgOdds, rate: settled.length ? Math.round(wins / settled.length * 100) : 0, total: settled.length };
+}
+const sign = n => (n > 0 ? '+' : '') + n.toFixed(1);
+
+function renderStats(){
+  const s = computeStats();
+  $('#stats').innerHTML = `
+    <div class="stat"><b>${s.rate}%</b><span>Win rate over ${s.total} settled picks</span></div>
+    <div class="stat"><b>${s.wins}W ${s.losses}L${s.voids ? ' ' + s.voids + 'V' : ''}</b><span>Wins, losses and voids</span></div>
+    <div class="stat"><b>${sign(s.units)}</b><span>Units profit at listed odds</span></div>
+    <div class="stat"><b>${s.avgOdds.toFixed(2)}</b><span>Average odds per pick</span></div>`;
+  $('#chart-sub').textContent = `${s.total} settled picks. A win at 1.70 adds 0.70 units, a loss takes away 1.`;
+}
+
+/* ---- prediction pieces ---- */
+const formChips = f => `<span class="form" aria-label="Last five: ${esc(f.split('').join(', '))}">${f.split('').map(c => `<i class="${c}">${c}</i>`).join('')}</span>`;
+const probBar = p => `
+  <div class="probs" role="img" aria-label="Home ${p[0]} percent, draw ${p[1]} percent, away ${p[2]} percent">
+    <span class="ph" style="flex:${p[0]}"></span><span class="pd" style="flex:${p[1]}"></span><span class="pa" style="flex:${p[2]}"></span>
+  </div>
+  <div class="probs-l"><span>Home ${p[0]}%</span><span>Draw ${p[1]}%</span><span>Away ${p[2]}%</span></div>`;
+const pips = n => `<div class="pips" aria-label="Confidence ${n} of 5">${[1,2,3,4,5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}<span>&nbsp;Confidence ${n}/5</span></div>`;
+const edge = p => +(p.chance - 100 / p.odds).toFixed(1);
+const keyOf = p => `${p.day}|${p.home}|${p.away}|${p.pick}`;
+
+/* ---- pick of the day ---- */
+function renderPotd(){
+  const today = PREDICTIONS.filter(p => p.day === 0);
+  const pool = today.length ? today : PREDICTIONS;
+  const best = [...pool].sort((a, b) => b.conf - a.conf || b.chance - a.chance)[0];
+  const el = $('#potd');
+  if (!best){ el.innerHTML = '<p>No picks yet. Check back soon.</p>'; return; }
+  const e = edge(best);
+  el.innerHTML = `
+    <div class="ticket-top"><strong>Pick of the day</strong><span>${esc(best.league)}, ${esc(best.time)}</span></div>
+    <div class="teams">${esc(best.home)}<span>v</span>${esc(best.away)}</div>
+    <div class="ticket-pick">
+      <span class="pill">${esc(best.pick)}</span>
+      <span class="ticket-odds">${best.odds.toFixed(2)}<small>odds</small></span>
+    </div>
+    <div style="font-size:.92rem;color:var(--muted);margin-bottom:12px">Our estimate: ${best.chance}%. Odds imply ${(100 / best.odds).toFixed(0)}%.${e > 0 ? ' Value: +' + e + ' points.' : ''}</div>
+    ${probBar(best.probs)}`;
+}
+
+/* ---- fixtures list ---- */
+function filtered(){
+  const q = state.q.trim().toLowerCase();
+  return PREDICTIONS.filter(p =>
+    (state.day === 'all' || p.day === +state.day) &&
+    (state.league === 'all' || p.league === state.league) &&
+    p.conf >= state.conf &&
+    (!q || (p.home + ' ' + p.away).toLowerCase().includes(q)) &&
+    (!state.starred || favs.has(keyOf(p)))
+  ).sort((a, b) => a.day - b.day || a.time.localeCompare(b.time));
+}
+
+function renderFixtures(){
+  const list = filtered();
+  const box = $('#fixtures');
+  if (!list.length){
+    box.innerHTML = `<div class="empty"><p>No picks match these filters.</p><button class="btn btn-primary" type="button" id="reset">Clear filters</button></div>`;
+    $('#reset').addEventListener('click', resetFilters);
+    return;
+  }
+  box.innerHTML = list.map((p, i) => {
+    const e = edge(p);
+    const starred = favs.has(keyOf(p));
+    return `
+    <article class="fixture">
+      <div class="fx-main">
+        <div class="fx-when"><b>${esc(p.time)}</b><small>${fmtDay(p.day)}<br>${esc(p.league)}</small></div>
+        <div class="fx-teams">
+          <div class="t">${esc(p.home)} ${formChips(p.formH)}</div>
+          <div class="t">${esc(p.away)} ${formChips(p.formA)}</div>
+          ${probBar(p.probs)}
+        </div>
+        <div class="fx-pick">
+          <span class="pill">${esc(p.pick)}</span>
+          <div class="odds-row"><b>${p.odds.toFixed(2)}</b><span>our estimate ${p.chance}%</span>${e > 0 ? `<span class="tag-value">Value +${e}</span>` : ''}</div>
+          ${pips(p.conf)}
+          <div class="fx-actions">
+            <button type="button" class="mini" data-star="${i}" aria-pressed="${starred}">${starred ? 'Starred' : 'Star'}</button>
+            <button type="button" class="mini" data-copy="${i}">Copy pick</button>
+          </div>
+        </div>
+      </div>
+      <details class="why"><summary>Why this pick</summary><p>${esc(p.why)}</p></details>
+    </article>`;
+  }).join('');
+
+  $$('[data-star]', box).forEach(b => b.addEventListener('click', () => {
+    const k = keyOf(list[+b.dataset.star]);
+    favs.has(k) ? favs.delete(k) : favs.add(k);
+    store.set('favs', [...favs]);
+    renderFixtures();
+  }));
+  $$('[data-copy]', box).forEach(b => b.addEventListener('click', () => {
+    const p = list[+b.dataset.copy];
+    const text = `${p.home} v ${p.away} (${p.league}): ${p.pick} @ ${p.odds.toFixed(2)}. Via ${CONFIG.siteName}`;
+    copyText(text).then(() => toast('Pick copied')).catch(() => toast('Could not copy'));
+  }));
+}
+
+function copyText(text){
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+  return new Promise((res, rej) => {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy') ? res() : rej(); } catch(e){ rej(e); }
+    ta.remove();
+  });
+}
+
+/* ---- filters wiring ---- */
+const leagues = [...new Set(PREDICTIONS.map(p => p.league))];
+$('#league').innerHTML = '<option value="all">All leagues</option>' + leagues.map(l => `<option>${esc(l)}</option>`).join('');
+$('#league').addEventListener('change', e => { state.league = e.target.value; renderFixtures(); });
+$('#conf').addEventListener('change', e => { state.conf = +e.target.value; renderFixtures(); });
+$('#q').addEventListener('input', e => { state.q = e.target.value; renderFixtures(); });
+$('#starred').addEventListener('click', e => {
+  state.starred = !state.starred; e.currentTarget.setAttribute('aria-pressed', state.starred); renderFixtures();
+});
+$$('#day-seg button').forEach(b => b.addEventListener('click', () => {
+  state.day = b.dataset.day;
+  $$('#day-seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  renderFixtures();
+}));
+function resetFilters(){
+  Object.assign(state, {day:'all', league:'all', conf:1, q:'', starred:false});
+  $('#league').value = 'all'; $('#conf').value = '1'; $('#q').value = '';
+  $('#starred').setAttribute('aria-pressed', 'false');
+  $$('#day-seg button').forEach(x => x.setAttribute('aria-pressed', x.dataset.day === 'all'));
+  renderFixtures();
+}
+
+/* ---- track record ---- */
+function renderChart(){
+  const svg = $('#chart');
+  const W = 640, H = 230, padL = 38, padR = 24, padT = 18, padB = 26;
+  const chrono = [...RESULTS].reverse();
+  let run = 0;
+  const pts = chrono.map(r => (run += r.res === 'W' ? r.odds - 1 : r.res === 'L' ? -1 : 0));
+  if (pts.length < 2){ svg.innerHTML = ''; return; }
+  const min = Math.min(0, ...pts), max = Math.max(0, ...pts);
+  const span = (max - min) || 1;
+  const x = i => padL + i * (W - padL - padR) / (pts.length - 1);
+  const y = v => padT + (max - v) * (H - padT - padB) / span;
+  const path = pts.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const last = pts[pts.length - 1];
+  svg.innerHTML = `
+    <line class="chart-axis" x1="${padL}" x2="${W - padR}" y1="${H - padB}" y2="${H - padB}"/>
+    <line class="chart-zero" x1="${padL}" x2="${W - padR}" y1="${y(0)}" y2="${y(0)}"/>
+    <text class="chart-text" x="${padL - 8}" y="${y(0) + 4}" text-anchor="end">0</text>
+    <text class="chart-text" x="${padL - 8}" y="${y(max) + 4}" text-anchor="end">${max.toFixed(1)}</text>
+    ${min < 0 ? `<text class="chart-text" x="${padL - 8}" y="${y(min) + 4}" text-anchor="end">${min.toFixed(1)}</text>` : ''}
+    <text class="chart-text" x="${padL}" y="${H - 6}">${fmtShort(chrono[0].d)}</text>
+    <text class="chart-text" x="${W - padR}" y="${H - 6}" text-anchor="end">${fmtShort(chrono[chrono.length - 1].d)}</text>
+    <path class="chart-line" d="${path}"/>
+    <circle class="chart-dot" cx="${x(pts.length - 1)}" cy="${y(last)}" r="6"/>
+    <text class="chart-text" x="${x(pts.length - 1) - 10}" y="${y(last) - 12}" text-anchor="end" style="font-weight:700;fill:var(--ink)">${sign(last)} units</text>`;
+}
+
+function renderLast10(){
+  $('#last10').innerHTML = RESULTS.slice(0, 10).map(r => `<i class="${r.res}" title="${esc(r.match)}: ${esc(r.pick)}">${r.res}</i>`).join('');
+}
+
+function renderResults(){
+  const rows = RESULTS.slice(0, state.shown);
+  $('#results').innerHTML = rows.map(r => `
+    <tr>
+      <td>${fmtShort(r.d)}</td>
+      <td><strong>${esc(r.match)}</strong><br><small style="color:var(--muted)">${esc(r.league)}, ${esc(r.score)}</small></td>
+      <td>${esc(r.pick)}</td>
+      <td>${r.odds.toFixed(2)}</td>
+      <td><span class="res ${r.res}" title="${r.res === 'W' ? 'Win' : r.res === 'L' ? 'Loss' : 'Void (refunded)'}">${r.res}</span></td>
+    </tr>`).join('');
+  $('#more').hidden = state.shown >= RESULTS.length;
+}
+$('#more').addEventListener('click', () => { state.shown += 10; renderResults(); });
+
+/* ---- go ---- */
+renderStats();
+renderPotd();
+renderFixtures();
+renderChart();
+renderLast10();
+renderResults();
+</script>
+</body>
+</html>
