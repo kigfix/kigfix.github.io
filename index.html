@@ -364,7 +364,7 @@ footer p{margin:0;max-width:70ch}
       <details><summary>What does the confidence rating mean?</summary><p>It's how sure we are about our own estimate, from 1 (shaky, limited information) to 5 (strong evidence from several angles). It is not a guarantee, and a 5 can still lose.</p></details>
       <details><summary>What does "value" mean?</summary><p>If we think a team has a 62% chance to win but the odds imply 57%, there's a gap in your favour. That's value. A pick can have a high chance but no value if the odds are already very short.</p></details>
       <details><summary>Which leagues do you cover?</summary><p>Mostly the Premier League, La Liga, Serie A, Bundesliga, Ligue 1 and the Champions League, because team news and data are easiest to check there.</p></details>
-      <details><summary>Do you take payment or run bookmaker ads?</summary><p>Edit this answer to match your site. If you ever add affiliate links, label them clearly so readers know.</p></details>
+      <details><summary>Do you take payment or run bookmaker ads?</summary><p>No. Everything on this site is free to read. If we ever add affiliate or bookmaker links, we will label them clearly.</p></details>
     </div>
   </section>
 </main>
@@ -386,49 +386,22 @@ footer p{margin:0;max-width:70ch}
    ===================================================================== */
 const CONFIG = {
   siteName: 'Pitchside Picks',
-  sampleMode: true
+  sampleMode: false
 };
 
 /* fields: day, time, league, home, away, pick, odds, chance (your % estimate),
    probs [home, draw, away] must add up to 100, conf 1-5, formH, formA (W/D/L), why */
 const PREDICTIONS = [
-  {day:0,time:'15:00',league:'Premier League',home:'Arsenal',away:'Brighton',pick:'Arsenal to win',odds:1.75,chance:62,probs:[60,22,18],conf:4,formH:'WWDWW',formA:'LDWLW',why:'Sample text. Explain your reasoning here: strong home form, the visitors rotating after a midweek game, and a chance profile that favours the home side. Two or three sentences is plenty.'},
-  {day:0,time:'17:30',league:'La Liga',home:'Real Sociedad',away:'Getafe',pick:'Under 2.5 goals',odds:1.80,chance:60,probs:[44,31,25],conf:3,formH:'WDWDL',formA:'DDLDW',why:'Sample text. Both sides lean cautious and low-event, so a tight scoreline looks more likely than the price suggests.'},
-  {day:0,time:'18:30',league:'Bundesliga',home:'Leverkusen',away:'Mainz',pick:'Over 2.5 goals',odds:1.70,chance:61,probs:[58,21,21],conf:3,formH:'WWWDW',formA:'LWLDL',why:'Sample text. An attacking home team against a leaky defence. Goals are the angle here rather than the winner.'},
-  {day:0,time:'19:45',league:'Serie A',home:'Inter',away:'Torino',pick:'Inter to win',odds:1.55,chance:68,probs:[68,19,13],conf:5,formH:'WWWWD',formA:'DLLDL',why:'Sample text. The biggest gap in quality on the day, a settled lineup and a visitor struggling for goals.'},
-  {day:0,time:'20:00',league:'Champions League',home:'Napoli',away:'Benfica',pick:'Napoli draw no bet',odds:1.62,chance:63,probs:[58,24,18],conf:3,formH:'WDWWL',formA:'WWDLW',why:'Sample text. Draw no bet protects you if it ends level, which suits a tighter European night.'},
-  {day:0,time:'21:00',league:'Ligue 1',home:'Lyon',away:'Nantes',pick:'Both teams to score',odds:1.85,chance:56,probs:[52,25,23],conf:2,formH:'WLWDW',formA:'LDWLD',why:'Sample text. Lower confidence: both teams usually score here, but lineup news could change that.'},
-  {day:1,time:'12:30',league:'Premier League',home:'Newcastle',away:'Everton',pick:'Newcastle to win',odds:1.90,chance:55,probs:[53,26,21],conf:3,formH:'WDWLW',formA:'DLDLL',why:'Sample text. Home advantage and a clear edge in chance creation, though the price already reflects some of it.'},
-  {day:1,time:'15:30',league:'Bundesliga',home:'Dortmund',away:'Freiburg',pick:'Dortmund win or draw',odds:1.40,chance:74,probs:[51,23,26],conf:4,formH:'WWDWL',formA:'DWLDW',why:'Sample text. A safer double-chance pick. Short odds, so the stake matters more than the headline price.'},
-  {day:1,time:'20:45',league:'Serie A',home:'Roma',away:'Lazio',pick:'Under 2.5 goals',odds:1.95,chance:54,probs:[37,32,31],conf:2,formH:'DWDLW',formA:'WDLWD',why:'Sample text. Derby matches tend to be cagey. Confidence is low because derbies are unpredictable.'},
-  {day:1,time:'21:00',league:'La Liga',home:'Barcelona',away:'Valencia',pick:'Barcelona to win',odds:1.45,chance:72,probs:[72,16,12],conf:5,formH:'WWWDW',formA:'LLDLD',why:'Sample text. Heavy favourites at home against a side short on goals and confidence.'}
+  /* Example pick. Copy the line below OUTSIDE this comment and edit it to add a pick:
+  {day:0,time:'19:45',league:'Serie A',home:'Team A',away:'Team B',pick:'Team A to win',odds:1.55,chance:68,probs:[68,19,13],conf:4,formH:'WWDWW',formA:'LDLLW',why:'Your reasoning here, in two or three sentences.'},
+  */
 ];
 
 /* fields: d (days ago, negative), league, match, pick, odds, score, res ('W','L' or 'V' for void) */
 const RESULTS = [
-  {d:-1,league:'Premier League',match:'Chelsea v Fulham',pick:'Chelsea to win',odds:1.70,score:'2-0',res:'W'},
-  {d:-1,league:'Serie A',match:'Milan v Udinese',pick:'Over 2.5 goals',odds:1.80,score:'1-0',res:'L'},
-  {d:-1,league:'La Liga',match:'Villarreal v Betis',pick:'Both teams to score',odds:1.75,score:'2-2',res:'W'},
-  {d:-2,league:'Bundesliga',match:'Bayern v Augsburg',pick:'Bayern -1 handicap',odds:1.60,score:'4-0',res:'W'},
-  {d:-2,league:'Ligue 1',match:'PSG v Lille',pick:'PSG to win',odds:1.55,score:'1-1',res:'L'},
-  {d:-3,league:'Premier League',match:'Liverpool v Brentford',pick:'Over 2.5 goals',odds:1.65,score:'3-1',res:'W'},
-  {d:-3,league:'Serie A',match:'Juventus v Bologna',pick:'Under 2.5 goals',odds:1.90,score:'1-0',res:'W'},
-  {d:-4,league:'La Liga',match:'Atletico v Osasuna',pick:'Atletico to win',odds:1.60,score:'2-1',res:'W'},
-  {d:-4,league:'Bundesliga',match:'Leipzig v Stuttgart',pick:'Both teams to score',odds:1.70,score:'0-0',res:'L'},
-  {d:-5,league:'Premier League',match:'Spurs v West Ham',pick:'Spurs to win',odds:1.95,score:'1-2',res:'L'},
-  {d:-5,league:'Champions League',match:'Sporting v Ajax',pick:'Sporting to win',odds:1.70,score:'1-1',res:'L'},
-  {d:-6,league:'Serie A',match:'Atalanta v Genoa',pick:'Atalanta to win',odds:1.55,score:'3-0',res:'W'},
-  {d:-6,league:'Ligue 1',match:'Monaco v Rennes',pick:'Over 2.5 goals',odds:1.75,score:'1-0',res:'L'},
-  {d:-7,league:'La Liga',match:'Girona v Sevilla',pick:'Girona draw no bet',odds:1.65,score:'0-0',res:'V'},
-  {d:-7,league:'Premier League',match:'Man City v Wolves',pick:'Man City to win',odds:1.30,score:'3-0',res:'W'},
-  {d:-8,league:'Bundesliga',match:'Frankfurt v Bremen',pick:'Over 2.5 goals',odds:1.80,score:'1-2',res:'W'},
-  {d:-9,league:'Serie A',match:'Napoli v Cagliari',pick:'Napoli to win',odds:1.50,score:'1-2',res:'L'},
-  {d:-9,league:'Premier League',match:'Aston Villa v Leeds',pick:'Villa to win',odds:1.75,score:'2-0',res:'W'},
-  {d:-10,league:'La Liga',match:'Real Madrid v Alaves',pick:'Real Madrid to win',odds:1.35,score:'3-0',res:'W'},
-  {d:-11,league:'Ligue 1',match:'Marseille v Toulouse',pick:'Marseille to win',odds:1.70,score:'0-1',res:'L'},
-  {d:-12,league:'Bundesliga',match:'Dortmund v Hoffenheim',pick:'Over 2.5 goals',odds:1.65,score:'2-0',res:'L'},
-  {d:-13,league:'Premier League',match:'Newcastle v Palace',pick:'Under 2.5 goals',odds:2.00,score:'0-0',res:'W'},
-  {d:-14,league:'La Liga',match:'Barcelona v Celta',pick:'Barcelona to win',odds:1.40,score:'4-1',res:'W'}
+  /* When a match finishes, add a row at the TOP of this list (newest first):
+  {d:-1,league:'Serie A',match:'Team A v Team B',pick:'Team A to win',odds:1.55,score:'2-0',res:'W'},
+  */
 ];
 
 /* =====================================================================
@@ -489,6 +462,11 @@ const sign = n => (n > 0 ? '+' : '') + n.toFixed(1);
 
 function renderStats(){
   const s = computeStats();
+  if (!s.total){
+    $('#stats').innerHTML = `<div class="stat" style="grid-column:1/-1"><b>Record starts today</b><span>Every pick we post is logged here, wins and losses. Check back as results come in.</span></div>`;
+    $('#chart-sub').textContent = 'No settled picks yet.';
+    return;
+  }
   $('#stats').innerHTML = `
     <div class="stat"><b>${s.rate}%</b><span>Win rate over ${s.total} settled picks</span></div>
     <div class="stat"><b>${s.wins}W ${s.losses}L${s.voids ? ' ' + s.voids + 'V' : ''}</b><span>Wins, losses and voids</span></div>
@@ -542,6 +520,10 @@ function filtered(){
 function renderFixtures(){
   const list = filtered();
   const box = $('#fixtures');
+  if (!PREDICTIONS.length){
+    box.innerHTML = `<div class="empty"><p>Today's picks will be posted here soon. Check back later.</p></div>`;
+    return;
+  }
   if (!list.length){
     box.innerHTML = `<div class="empty"><p>No picks match these filters.</p><button class="btn btn-primary" type="button" id="reset">Clear filters</button></div>`;
     $('#reset').addEventListener('click', resetFilters);
@@ -626,7 +608,7 @@ function renderChart(){
   const chrono = [...RESULTS].reverse();
   let run = 0;
   const pts = chrono.map(r => (run += r.res === 'W' ? r.odds - 1 : r.res === 'L' ? -1 : 0));
-  if (pts.length < 2){ svg.innerHTML = ''; return; }
+  if (pts.length < 2){ svg.innerHTML = '<text class="chart-text" x="320" y="115" text-anchor="middle">The chart appears once there are two settled picks.</text>'; return; }
   const min = Math.min(0, ...pts), max = Math.max(0, ...pts);
   const span = (max - min) || 1;
   const x = i => padL + i * (W - padL - padR) / (pts.length - 1);
@@ -651,6 +633,11 @@ function renderLast10(){
 }
 
 function renderResults(){
+  if (!RESULTS.length){
+    $('#results').innerHTML = '<tr><td colspan="5" style="color:var(--muted)">No settled results yet. They will appear here after the first matches finish.</td></tr>';
+    $('#more').hidden = true;
+    return;
+  }
   const rows = RESULTS.slice(0, state.shown);
   $('#results').innerHTML = rows.map(r => `
     <tr>
